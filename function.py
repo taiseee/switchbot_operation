@@ -66,7 +66,7 @@ def get_device_list(deviceListJson='deviceList.json'):
         print('response error:',e)
 
 #鍵のロック
-def lock(deviceId: str):
+def lock(deviceId: str, token: str, secret: str):
     token = "efde79485d13de0bd56c96b8d87907f7d5526961006ee8dbfad7283b88069983873b64454db42e1a487378a9388a3c44"
     secret = "4b4d4c7d1c34385cc094a49fc1d37f4e"
 
@@ -87,7 +87,7 @@ def lock(deviceId: str):
         print('response error:',e)
 
 #鍵のアンロック
-def unlock(deviceId: str):
+def unlock(deviceId: str, token: str, secret: str):
     token = "efde79485d13de0bd56c96b8d87907f7d5526961006ee8dbfad7283b88069983873b64454db42e1a487378a9388a3c44"
     secret = "4b4d4c7d1c34385cc094a49fc1d37f4e"
 
@@ -106,3 +106,17 @@ def unlock(deviceId: str):
         
     except requests.exceptions.RequestException as e:
         print('response error:',e)
+        
+def get_header(event, context):
+	try:
+		# パラメータ設定
+		# ヘッダー項目取得
+		deviceId = event['headers']['deviceid']
+
+		# 取得結果を返却
+		return {
+                'deviceId': deviceId,
+		}
+	except Exception as e:
+		# エラー
+		print(e)
